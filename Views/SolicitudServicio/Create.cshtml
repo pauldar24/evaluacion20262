@@ -1,0 +1,64 @@
+@model evaluacion20262.Models.SolicitudServicio
+
+@{
+    ViewData["Title"] = "Registrar Solicitud";
+}
+
+<h1>Registrar Solicitud de Servicio</h1>
+<hr />
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Mensaje"]
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Cliente" class="form-label"></label>
+                <input asp-for="Cliente" class="form-control" />
+                <span asp-validation-for="Cliente" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Telefono" class="form-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Distrito" class="form-label"></label>
+                <input asp-for="Distrito" class="form-control" />
+                <span asp-validation-for="Distrito" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TipoServicio" class="form-label"></label>
+                <input asp-for="TipoServicio" class="form-control" />
+                <span asp-validation-for="TipoServicio" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Descripcion" class="form-label"></label>
+                <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
