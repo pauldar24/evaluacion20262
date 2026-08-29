@@ -14,7 +14,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Render web services must bind to $PORT at runtime (default 10000).
-# Cache-busting note: the shell form evaluates ${PORT:-8080} at container start.
-EXPOSE 8080
-ENTRYPOINT ["/bin/sh", "-c", "ASPNETCORE_URLS=\"http://+:${PORT:-8080}\" dotnet evaluacion20262.dll"]
+# Binding is configured at runtime in Program.cs from Render's $PORT
+# (default 10000). Clear the image default to avoid double-binding.
+ENV ASPNETCORE_HTTP_PORTS=
+EXPOSE 10000
+ENTRYPOINT ["dotnet", "evaluacion20262.dll"]

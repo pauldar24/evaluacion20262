@@ -20,7 +20,7 @@ La app se despliega como contenedor Docker a partir del `Dockerfile` de la raíz
 
 ### Puerto
 
-Render asigna una variable de entorno `PORT` (por defecto `10000`). El `ENTRYPOINT` del contenedor vincula Kestrel a `http://+:${PORT}` con fallback a `8080`; Render detecta el puerto automáticamente.
+Render asigna una variable de entorno `PORT` (por defecto `10000`). `Program.cs` vincula Kestrel a `http://0.0.0.0:$PORT` (fallback `10000`) en contenedores, escuchando en todas las interfaces; Render detecta el puerto automáticamente.
 
 ### Configuración en el Dashboard
 
@@ -32,11 +32,11 @@ Render asigna una variable de entorno `PORT` (por defecto `10000`). El `ENTRYPOI
 
 | Variable | Valor | Motivo |
 | --- | --- | --- |
-| `ConnectionStrings__DefaultConnection` | `Data Source=/var/render/tecnogas.db` | El filesystem del contenedor no es persistente; apuntar la BD a un disco montado. Sin esta variable, SQLite intenta escribir en `/app` (solo lectura) y la app falla. |
+| `ConnectionStrings__DefaultConnection` | `Data Source=/var/render/tecnogas.db` | (Recomendada) Dirigir la BD al disco persistente. |
 
-El doble guion bajo (`__`) equivale a `:` en la configuración de .NET, por lo que esta variable sobreescribe la cadena de conexión de `appsettings.json`.
+El doble guion bajo (`__`) equivale a `:` en la configuración de .NET, por lo que esta variable sobreescribe la cadena de conexión de `appsettings.json`. Sin esta variable, el contenedor escribe la BD en un directorio escribible (`/var/render` si el disco está montado, o `/tmp`), de modo que la app arranca igual, aunque los datos se pierden en cada *redeploy*.
 
-### Disco persistente (obligatorio para SQLite)
+### Disco persistente (obligatorio para conservar datos)
 
 Como la app usa una base de datos SQLite en archivo:
 
