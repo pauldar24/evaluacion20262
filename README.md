@@ -50,3 +50,4 @@ Sin disco, los datos se pierden en cada *redeploy*/reinicio (en el plan gratis e
 
 - Render termina el TLS en su balanceador y reenvía por HTTP; el warning de `UseHttpsRedirection` ("Failed to determine the https port") es esperado y no afecta el funcionamiento.
 - Las migraciones de EF Core (`dotnet ef migrations add InitialCreate`) ya existen en `Migrations/`; el contenedor las aplica automáticamente al arrancar, incluida la migración inicial sobre una BD vacía.
+- El `Dockerfile` se construye sobre imágenes **Ubuntu 24.04** (`10.0-noble`, no Alpine). SQLitePCLRaw empaqueta su binario nativo `e_sqlite3` compilado contra glibc; sobre Alpine (musl) la app muere con *segmentation fault* (exit 139). La imagen runtime además instala `sqlite3` y `libsqlite3-0` por compatibilidad.
