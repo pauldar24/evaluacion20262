@@ -1,0 +1,56 @@
+@model IEnumerable<evaluacion20262.Models.SolicitudServicio>
+
+@{
+    ViewData["Title"] = "Solicitudes de Servicio";
+}
+
+<h1>Solicitudes de Servicio</h1>
+<hr />
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Mensaje"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nueva Solicitud</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Id)</th>
+            <th>@Html.DisplayNameFor(model => model.Cliente)</th>
+            <th>@Html.DisplayNameFor(model => model.Telefono)</th>
+            <th>@Html.DisplayNameFor(model => model.Distrito)</th>
+            <th>@Html.DisplayNameFor(model => model.TipoServicio)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.FechaRegistro)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Cliente)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Distrito)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TipoServicio)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaRegistro)</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center text-muted">No hay solicitudes registradas.</td>
+            </tr>
+        }
+    </tbody>
+</table>
