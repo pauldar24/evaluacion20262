@@ -1,0 +1,26 @@
+# Build output
+bin/
+obj/
+publish/
+
+# VCS
+.git/
+.gitignore
+
+# Local dev SQLite database (must not be baked into the image)
+tecnogas.db
+tecnogas.db-shm
+tecnogas.db-wal
+
+# Tooling / editor
+.vs/
+.idea/
+.vscode/
+
+# Local secrets
+appsettings.Development.json
+
+# Deployment files (context not needed by the build)
+Dockerfile
+.dockerignore
+render.yaml
